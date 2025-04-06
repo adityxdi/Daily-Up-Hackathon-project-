@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rewards-Daily-Up</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #a2d4f5, #6e3cfa);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .rewards-card {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 30px;
+      width: 300px;
+      text-align: center;
+    }
+
+    .rewards-card h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #2e00a5;
+    }
+
+    .rewards-card p {
+      font-size: 28px;
+      font-weight: 600;
+      color: #ffeb3b;
+    }
+
+    .achievements {
+      margin-top: 20px;
+      color: #4caf50;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .achievements ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .achievements li {
+      margin-bottom: 10px;
+    }
+
+    .redeem-card {
+      background: #4b3bb6;
+      color: white;
+      font-size: 18px;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .redeem-card:hover {
+      background: #6e3cfa;
+    }
+
+    .redeem-card h3 {
+      margin-bottom: 15px;
+    }
+
+    .back-btn {
+      background: white;
+      color: #4b3bb6;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .back-btn:hover {
+      background: #ddd;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="rewards-card">
+    <h2>Your Rewards</h2>
+    <p id="reward-points">Points: Loading...</p>
+
+    <div class="achievements">
+      <h3>Achievements</h3>
+      <ul id="achievements-list">
+        <!-- Achievements will be dynamically inserted here -->
+      </ul>
+    </div>
+
+    <!-- Redeem Rewards Card -->
+    <div class="redeem-card" onclick="window.location.href='redeem_rewards.html'">
+      <h3>Redeem Your Rewards</h3>
+      <p>Click here to redeem your points!</p>
+    </div>
+
+    <button class="back-btn" onclick="window.location.href='index.html'">Back to To Do's</button>
+  </div>
+
+  <script>
+    // Initialize reward points to 500
+    if (!localStorage.getItem('rewardPoints')) {
+      localStorage.setItem('rewardPoints', 500); // Set default points to 500
+    }
+
+    // Initialize achievements (you can customize these based on tasks completed)
+    const achievements = [
+      "Completed 5 tasks",
+      "Made progress in your goals",
+      "Stayed consistent for a week",
+      "Started learning new skills"
+    ];
+
+    // Display points
+    document.getElementById('reward-points').textContent = `Points: ${localStorage.getItem('rewardPoints')}`;
+
+    // Display achievements as a list
+    const achievementsList = document.getElementById('achievements-list');
+    achievements.forEach(achievement => {
+      const li = document.createElement('li');
+      li.textContent = achievement;
+      achievementsList.appendChild(li);
+    });
+
+  </script>
+</body>
+
+</html>

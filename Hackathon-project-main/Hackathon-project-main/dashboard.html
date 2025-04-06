@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DailyUp Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #a2d4f5, #6e3cfa);
+      color: white;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      flex-direction: row;
+    }
+
+    .sidebar {
+      width: 80px;
+      background: #4b3bb6;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sidebar a {
+      margin: 20px 0;
+      background: white;
+      border-radius: 10px;
+      padding: 10px;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      line-height: 20px;
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .main {
+      flex: 1;
+      padding: 20px 40px;
+      overflow-y: auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .search {
+      padding: 8px 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .task-input {
+      display: flex;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    .task-input input, .task-input select {
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .task-input button {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #3f2b96;
+      color: white;
+      cursor: pointer;
+    }
+
+    .task-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .task-card {
+      background: white;
+      color: black;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+    }
+
+    .task-card:hover {
+      transform: scale(1.02);
+    }
+
+    .task-card span {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background-color: #eee;
+    }
+
+    .Completed { background-color: #aef1d6 !important; }
+    .Pending { background-color: #fdf7c3 !important; }
+    .Upcoming { background-color: #d0e8ff !important; }
+    .Overdue { background-color: #ffb3b3 !important; }
+
+    .quote {
+      background: linear-gradient(to right, #67b6f5, #3387d4);
+      padding: 20px;
+      border-radius: 20px;
+      font-style: italic;
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .filter-select {
+      margin-left: 10px;
+      padding: 6px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+    }
+
+    .progress-section {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .progress-tile {
+      padding: 20px;
+      background: white;
+      color: black;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      max-width: 300px;
+    }
+
+    .progress-circle {
+      width: 120px;
+      height: 120px;
+      background: conic-gradient(#4caf50 0% 70%, #ccc 70%);
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      position: relative;
+    }
+
+    .progress-circle::after {
+      content: "70%";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+      font-weight: bold;
+      color: black;
+    }
+
+    .tile-example {
+      padding: 30px;
+      background: linear-gradient(to right, #88d3ce, #6e45e2);
+      border-radius: 16px;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .tile-example h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        flex-direction: row;
+        width: 100%;
+        height: 60px;
+        justify-content: space-around;
+      }
+      .main {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <a href="dashboard.html">🏠</a>
+      <a href="to-do.html">✅</a>
+      <a href="dates.html">🗓️</a>
+      <a href="profile.html">👤</a>
+      <a href="rewards.html">🎁</a> <!-- Added rewards icon/link -->
+    </div>
+    <div class="main">
+      <div class="header">
+        <h1>DailyUp ⬆</h1>
+        <div>
+          <input class="search" type="text" id="searchInput" placeholder="Search tasks..." />
+          <select id="filterStatus" class="filter-select">
+            <option value="">All</option>
+            <option value="Completed">Completed</option>
+            <option value="Pending">Pending</option>
+            <option value="Upcoming">Upcoming</option>
+            <option value="Overdue">Overdue</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="task-input">
+        <input type="text" id="taskTitle" placeholder="Enter task..." />
+        <select id="taskStatus">
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+          <option value="Upcoming">Upcoming</option>
+          <option value="Overdue">Overdue</option>
+        </select>
+        <button onclick="addTask()">Add</button>
+      </div>
+
+      <div class="task-list" id="taskList"></div>
+
+      <div class="progress-section">
+        <div class="progress-tile">
+          <div class="progress-circle"></div>
+          <p>Weekly Progress</p>
+        </div>
+      </div>
+
+      <div class="tile-example">
+        <h3>🎉 Congrats Eddie!</h3>
+        <p>You've completed 5 of your weekly goals. Keep up the amazing work!</p>
+      </div>
+
+      <div class="quote">"Each line moves you forward."</div>
+    </div>
+  </div>
+
+  <script>
+    const taskListElement = document.getElementById('taskList');
+    const searchInput = document.getElementById('searchInput');
+    const filterStatus = document.getElementById('filterStatus');
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    // Display tasks with filtering and search
+    function displayTasks() {
+      const search = searchInput.value.toLowerCase();
+      const filter = filterStatus.value;
+
+      taskListElement.innerHTML = ""; // Clear the existing tasks
+
+      // Filter tasks based on search and status
+      tasks
+        .filter(t => t.title.toLowerCase().includes(search) && (!filter || t.status === filter))
+        .forEach((task, index) => {
+          const card = document.createElement('div');
+          card.className = `task-card ${task.status}`;
+          card.innerHTML = `
+            <strong contenteditable="true" onblur="editTask(${index}, this.innerText)">${task.title}</strong><br>
+            <span>${task.status}</span><br>
+            <button onclick="deleteTask(${index})" style="margin-top:8px; padding:5px 10px; background:#ff4d4d; border:none; border-radius:6px; color:white; cursor:pointer;">Delete</button>
+          `;
+          taskListElement.appendChild(card);
+        });
+    }
+
+    // Add task function
+    function addTask() {
+      const title = document.getElementById('taskTitle').value;
+      const status = document.getElementById('taskStatus').value;
+      if (title) {
+        tasks.push({ title, status });
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        document.getElementById('taskTitle').value = "";
+        displayTasks();
+      }
+    }
+
+    // Delete task function
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      displayTasks();
+    }
+
+    // Edit task function
+    function editTask(index, title) {
+      tasks[index].title = title;
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    // Event listeners for search input and filter changes
+    searchInput.addEventListener('input', displayTasks); // Trigger on input
+    filterStatus.addEventListener('change', displayTasks); // Trigger on filter change
+
+    // Initial display of tasks
+    displayTasks();
+  </script>
+</body>
+</html>

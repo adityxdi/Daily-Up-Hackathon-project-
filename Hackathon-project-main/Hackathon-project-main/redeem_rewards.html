@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redeem Rewards</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #a2d4f5, #6e3cfa);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .redeem-container {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      width: 80%;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #2e00a5;
+      margin-bottom: 20px;
+    }
+
+    .voucher {
+      background: #4b3bb6;
+      color: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+
+    .voucher:hover {
+      background: #6e3cfa;
+    }
+
+    .voucher p {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .voucher span {
+      font-size: 18px;
+      color: #ffeb3b;
+    }
+
+    .redeem-button {
+      background: #4b3bb6;
+      color: white;
+      padding: 15px 30px;
+      margin-top: 30px;
+      border-radius: 12px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .redeem-button:hover {
+      background: #6e3cfa;
+    }
+
+    .back-btn {
+      background: white;
+      color: #4b3bb6;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: #ddd;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="redeem-container">
+    <h2>Redeem Your Rewards</h2>
+
+    <!-- Reward Options -->
+    <a href="#" class="voucher" onclick="redeemVoucher('Zomato')">
+      <p>Zomato Voucher</p>
+      <span>150 Points</span>
+    </a>
+    <a href="#" class="voucher" onclick="redeemVoucher('Swiggy')">
+      <p>Swiggy Voucher</p>
+      <span>200 Points</span>
+    </a>
+    <a href="#" class="voucher" onclick="redeemVoucher('Amazon')">
+      <p>Amazon Voucher</p>
+      <span>500 Points</span>
+    </a>
+    <a href="#" class="voucher" onclick="redeemVoucher('Flipkart')">
+      <p>Flipkart Voucher</p>
+      <span>400 Points</span>
+    </a>
+
+    <button class="redeem-button" onclick="checkRedemption()">Redeem</button>
+    <button class="back-btn" onclick="window.location.href='rewards.html'">Back to Rewards</button>
+  </div>
+
+  <script>
+    let rewardPoints = localStorage.getItem('rewardPoints') || 0;
+
+    // Function to handle voucher redemption and redirect to real site
+    function redeemVoucher(voucher) {
+      // Get the points for each voucher
+      let pointsRequired;
+      let redirectURL = '';
+      if (voucher === 'Zomato') {
+        pointsRequired = 150;
+        redirectURL = 'https://www.zomato.com';
+      } else if (voucher === 'Swiggy') {
+        pointsRequired = 200;
+        redirectURL = 'https://www.swiggy.com';
+      } else if (voucher === 'Amazon') {
+        pointsRequired = 500;
+        redirectURL = 'https://www.amazon.in';
+      } else if (voucher === 'Flipkart') {
+        pointsRequired = 400;
+        redirectURL = 'https://www.flipkart.com';
+      }
+
+      // Check if the user has enough points
+      if (rewardPoints >= pointsRequired) {
+        // Update points after redemption
+        localStorage.setItem('rewardPoints', rewardPoints - pointsRequired); // Subtract points
+        rewardPoints -= pointsRequired; // Update local variable
+        
+        // Display success alert (optional)
+        alert(`You have successfully redeemed a ${voucher} voucher!`);
+        
+        // Immediately redirect to the voucher's site
+        window.open(redirectURL, '_blank'); // Open in a new tab
+      } else {
+        alert(`You need ${pointsRequired - rewardPoints} more points to redeem a ${voucher} voucher.`);
+      }
+    }
+
+    // Function to check redemption (optional, if you want a confirmatory action)
+    function checkRedemption() {
+      alert('Proceeding with redemption...');
+    }
+  </script>
+</body>
+
+</html>
